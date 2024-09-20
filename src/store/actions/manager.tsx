@@ -62,6 +62,9 @@ export function handleNoteSort(isNoteSort: boolean) {
 export function handleFeedbackDialog(mode: boolean) {
   return { type: "HANDLE_FEEDBACK_DIALOG", payload: mode };
 }
+export function handleBookFetching(isFetching: boolean) {
+  return { type: "HANDLE_FEEDBACK_DIALOG", payload: isFetching };
+}
 export function handleBookSortCode(bookSortCode: {
   sort: number;
   order: number;
@@ -130,3 +133,4 @@ const handleKeyFilter = (items: any[], arr: string[]) => {
   }
   return itemArr;
 };
+

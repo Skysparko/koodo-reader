@@ -52,6 +52,7 @@ export type stateType = {
     bookSortCode: { sort: number; order: number };
     noteSortCode: { sort: number; order: number };
     tip: string;
+    isFetching:boolean
   };
   book: {
     isOpenEditDialog: boolean;

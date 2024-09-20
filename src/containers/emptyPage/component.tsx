@@ -53,7 +53,7 @@ class EmptyPage extends React.Component<EmptyPageProps, EmptyPageState> {
           />
         </div>
 
-        {renderEmptyList()}
+        {this.props.isFetching ? renderEmptyList():null}
       </div>
     );
   }

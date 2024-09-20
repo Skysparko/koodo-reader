@@ -1,6 +1,8 @@
 import axios from "axios";
 import StorageUtil from "./serviceUtils/storageUtil";
 import { isElectron } from "react-device-detect";
+import BookModel from "../models/Book";
+
 declare var window: any;
 export const sleep = (time: number) => {
   return new Promise((resolve) => setTimeout(resolve, time));
@@ -132,3 +134,49 @@ export const getStrSHA256 = (str: string) => {
   hash.update(str);
   return hash.digest("hex");
 };
+
+
+// Function to fetch books from API
+export function fetchBooksFromApi() {
+  return async (dispatch: any) => {
+    try {
+      const response = {
+        data:[
+        {  _id: "123",
+          name: "first",
+          author: "shubham",
+          description: "rakhecha",
+          md5: "md5",
+          cover: "https://m.media-amazon.com/images/I/814BsY20+4L._SL1500_.jpg",
+          format: "pdf",
+          publisher: "skysparko",
+          size: 1,
+          page: 1,
+          path: "http://localhost:8000/uploads/Shubham_Rakhecha-1726704918553.pdf",
+          charset: "UTF-8",}
+        ]
+      }; // Replace with your API URL
+      const books = response.data; // Assuming API response is an array of book objects
+
+      // Transform the data into BookModel if needed
+      const bookList: BookModel[] = books.map((book) => ({
+        key: book._id,
+        name: book.name,
+        author: book.author,
+        description: book.description,
+        md5: book.md5,
+        cover: book.cover,
+        format: book.format,
+        publisher: book.publisher,
+        size: book.size,
+        page: book.page,
+        path: book.path,
+        charset: book.charset,
+      }));
+
+
+    } catch (error) {
+      console.error("Error fetching books:", error);
+    }
+  };
+}

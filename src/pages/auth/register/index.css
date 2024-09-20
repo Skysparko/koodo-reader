@@ -1,0 +1,77 @@
+/* Keep your existing styles */
+
+.register-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    padding: 20px;
+    align-items: center;
+  }
+  
+  .field-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #ddd; /* Lighter color for labels */
+  }
+  
+  input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #555; /* Darker border */
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #333; /* Dark input background */
+    color: #fff; /* Text color in input */
+  }
+  
+  input:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    outline: none;
+    background-color: #444; /* Slightly lighter background on focus */
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  a{
+    color: #85bffd;
+    margin-top: 20px;
+  }

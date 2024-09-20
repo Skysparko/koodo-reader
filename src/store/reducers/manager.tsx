@@ -21,6 +21,7 @@ const initState = {
   message: "Addition successful",
   tip: "",
   selectedBooks: [],
+  isFetching:true,
 };
 export function manager(
   state = initState,
@@ -152,6 +153,12 @@ export function manager(
         ...state,
         bookmarks: action.payload,
       };
+
+      case "HANDLE_BOOKS_FETCHING":
+        return {
+          ...state,
+          isFetching: action.payload,
+        };
 
     default:
       return state;

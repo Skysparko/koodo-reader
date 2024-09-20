@@ -85,37 +85,37 @@ class BookList extends React.Component<BookListProps, BookListState> {
     let books = this.props.isSearch
       ? this.handleIndexFilter(this.props.books, this.props.searchResults)
       : this.props.shelfIndex > 0
-      ? this.handleIndexFilter(
+        ? this.handleIndexFilter(
           this.handleShelf(this.props.books, this.props.shelfIndex),
           SortUtil.sortBooks(
             this.handleShelf(this.props.books, this.props.shelfIndex),
             this.props.bookSortCode
           ) || []
         )
-      : this.props.mode === "favorite"
-      ? this.handleIndexFilter(
-          this.handleKeyFilter(this.props.books, AddFavorite.getAllFavorite()),
-          SortUtil.sortBooks(
-            this.handleKeyFilter(
+        : this.props.mode === "favorite"
+          ? this.handleIndexFilter(
+            this.handleKeyFilter(this.props.books, AddFavorite.getAllFavorite()),
+            SortUtil.sortBooks(
+              this.handleKeyFilter(
+                this.props.books,
+                AddFavorite.getAllFavorite()
+              ),
+              this.props.bookSortCode
+            ) || []
+          )
+          : this.state.isHideShelfBook
+            ? this.handleIndexFilter(
+              this.handleFilterShelfBook(this.props.books),
+              SortUtil.sortBooks(
+                this.handleFilterShelfBook(this.props.books),
+                this.props.bookSortCode
+              ) || []
+            )
+            : this.handleIndexFilter(
               this.props.books,
-              AddFavorite.getAllFavorite()
-            ),
-            this.props.bookSortCode
-          ) || []
-        )
-      : this.state.isHideShelfBook
-      ? this.handleIndexFilter(
-          this.handleFilterShelfBook(this.props.books),
-          SortUtil.sortBooks(
-            this.handleFilterShelfBook(this.props.books),
-            this.props.bookSortCode
-          ) || []
-        )
-      : this.handleIndexFilter(
-          this.props.books,
-          SortUtil.sortBooks(this.props.books, this.props.bookSortCode) || []
-        );
-    if (books.length === 0 && !this.props.isSearch) {
+              SortUtil.sortBooks(this.props.books, this.props.bookSortCode) || []
+            );
+    if (books.length === 0 && !this.props.isSearch ) {
       return <Redirect to="/manager/empty" />;
     }
     setTimeout(() => {
@@ -184,15 +184,15 @@ class BookList extends React.Component<BookListProps, BookListState> {
       rect.top >= 0 &&
       rect.left >= 0 &&
       rect.bottom <=
-        (window.innerHeight || document.documentElement.clientHeight) &&
+      (window.innerHeight || document.documentElement.clientHeight) &&
       rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
   };
   render() {
     if (
-      (this.state.favoriteBooks === 0 && this.props.mode === "favorite") ||
-      !this.props.books ||
-      !this.props.books[0]
+      ((this.state.favoriteBooks === 0 && this.props.mode === "favorite") ||
+        !this.props.books ||
+        !this.props.books[0]) 
     ) {
       return <Redirect to="/manager/empty" />;
     }

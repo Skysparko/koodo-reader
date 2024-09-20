@@ -7,6 +7,7 @@ const mapStateToProps = (state: stateType) => {
   return {
     mode: state.sidebar.mode,
     isCollapsed: state.sidebar.isCollapsed,
+    isFetchin:state.manager.isFetching
   };
 };
 const actionCreator = {};

@@ -4,6 +4,7 @@ import BookmarkModel from "../../../models/Bookmark";
 import { RouteComponentProps } from "react-router";
 export interface BookListProps extends RouteComponentProps<any> {
   books: BookModel[];
+  isFetching:boolean;
   mode: string;
   shelfIndex: number;
   searchResults: number[];

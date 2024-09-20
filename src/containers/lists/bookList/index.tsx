@@ -13,6 +13,7 @@ import BookList from "./component";
 const mappropsToProps = (state: stateType) => {
   return {
     books: state.manager.books,
+    isFetching:state.manager.isFetching,
     mode: state.sidebar.mode,
     bookmarks: state.reader.bookmarks,
     notes: state.reader.notes,

@@ -1,11 +1,27 @@
 import React, { useEffect } from "react";
-import { Route, Switch, HashRouter } from "react-router-dom";
+import { Route, Switch, HashRouter, Redirect } from "react-router-dom";
 import Manager from "../pages/manager";
 import HtmlReader from "../pages/htmlReader";
 import PDFReader from "../pages/pdfReader";
 import _Redirect from "../pages/redirect";
 import i18n from "../i18n";
 import StorageUtil from "../utils/serviceUtils/storageUtil";
+import Login from "../pages/auth/login";
+import Register from "../pages/auth/register";
+
+const isAuthenticated = () => {
+  // Replace this with your actual authentication logic
+  return true;
+};
+
+const AuthRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      isAuthenticated() ? <Component {...props} /> : <Redirect to="/" />
+    }
+  />
+);
 
 const Router = () => {
   useEffect(() => {
@@ -108,27 +124,29 @@ const Router = () => {
   return (
     <HashRouter>
       <Switch>
-        <Route component={Manager} path="/manager" />
-        <Route component={HtmlReader} path="/epub" />
-        <Route component={HtmlReader} path="/mobi" />
-        <Route component={HtmlReader} path="/cbr" />
-        <Route component={HtmlReader} path="/cbt" />
-        <Route component={HtmlReader} path="/cbz" />
-        <Route component={HtmlReader} path="/cb7" />
-        <Route component={HtmlReader} path="/azw3" />
-        <Route component={HtmlReader} path="/azw" />
-        <Route component={HtmlReader} path="/txt" />
-        <Route component={HtmlReader} path="/docx" />
-        <Route component={HtmlReader} path="/md" />
-        <Route component={HtmlReader} path="/fb2" />
-        <Route component={HtmlReader} path="/html" />
-        <Route component={HtmlReader} path="/htm" />
-        <Route component={HtmlReader} path="/xml" />
-        <Route component={HtmlReader} path="/xhtml" />
-        <Route component={HtmlReader} path="/mhtml" />
-        <Route component={HtmlReader} path="/href" />
-        <Route component={PDFReader} path="/pdf" />
-        <Route component={_Redirect} path="/" />
+        <Route component={Login} path="/" exact />
+        <Route component={Register} path="/register"  />
+        <AuthRoute component={Manager} path="/manager" />
+        <AuthRoute component={HtmlReader} path="/epub" />
+        <AuthRoute component={HtmlReader} path="/mobi" />
+        <AuthRoute component={HtmlReader} path="/cbr" />
+        <AuthRoute component={HtmlReader} path="/cbt" />
+        <AuthRoute component={HtmlReader} path="/cbz" />
+        <AuthRoute component={HtmlReader} path="/cb7" />
+        <AuthRoute component={HtmlReader} path="/azw3" />
+        <AuthRoute component={HtmlReader} path="/azw" />
+        <AuthRoute component={HtmlReader} path="/txt" />
+        <AuthRoute component={HtmlReader} path="/docx" />
+        <AuthRoute component={HtmlReader} path="/md" />
+        <AuthRoute component={HtmlReader} path="/fb2" />
+        <AuthRoute component={HtmlReader} path="/html" />
+        <AuthRoute component={HtmlReader} path="/htm" />
+        <AuthRoute component={HtmlReader} path="/xml" />
+        <AuthRoute component={HtmlReader} path="/xhtml" />
+        <AuthRoute component={HtmlReader} path="/mhtml" />
+        <AuthRoute component={HtmlReader} path="/href" />
+        <AuthRoute component={PDFReader} path="/pdf" />
+        <AuthRoute component={_Redirect} path="/redirect" />
       </Switch>
     </HashRouter>
   );

@@ -5,6 +5,7 @@ import { handleReadingBook } from "../../store/actions";
 import { stateType } from "../../store";
 import { withTranslation } from "react-i18next";
 import ImportLocal from "./component";
+import { withCookies } from "react-cookie";
 
 const mapStateToProps = (state: stateType) => {
   return {
@@ -25,4 +26,4 @@ const actionCreator = {
 export default connect(
   mapStateToProps,
   actionCreator
-)(withTranslation()(ImportLocal as any) as any);
+)(withTranslation()(withCookies(ImportLocal as any)) as any);

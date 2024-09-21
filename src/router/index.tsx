@@ -8,22 +8,28 @@ import i18n from "../i18n";
 import StorageUtil from "../utils/serviceUtils/storageUtil";
 import Login from "../pages/auth/login";
 import Register from "../pages/auth/register";
-
-const isAuthenticated = () => {
-  // Replace this with your actual authentication logic
-  return true;
-};
-
-const AuthRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      isAuthenticated() ? <Component {...props} /> : <Redirect to="/" />
-    }
-  />
-);
+import { useCookies } from "react-cookie";
 
 const Router = () => {
+  const [cookies, setCookie] = useCookies(['token']);
+
+  const AuthRoute = ({ component: Component, ...rest }) => (
+    <Route
+      {...rest}
+      render={(props) =>
+        cookies.token ? <Component {...props} /> : <Redirect to="/" />
+      }
+    />
+  );
+
+  const GuestRoute = ({ component: Component, ...rest }) => (
+    <Route
+      {...rest}
+      render={(props) =>
+        !cookies.token ? <Component {...props} /> : <Redirect to="/manager" />
+      }
+    />
+  );
   useEffect(() => {
     const lng = StorageUtil.getReaderConfig("lang");
 
@@ -124,8 +130,8 @@ const Router = () => {
   return (
     <HashRouter>
       <Switch>
-        <Route component={Login} path="/" exact />
-        <Route component={Register} path="/register"  />
+        <GuestRoute component={Login} path="/" exact />
+        <GuestRoute component={Register} path="/register"  />
         <AuthRoute component={Manager} path="/manager" />
         <AuthRoute component={HtmlReader} path="/epub" />
         <AuthRoute component={HtmlReader} path="/mobi" />

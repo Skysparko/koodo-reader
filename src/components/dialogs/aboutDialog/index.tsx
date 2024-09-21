@@ -3,6 +3,7 @@ import { handleSetting, handleAbout } from "../../../store/actions";
 import { stateType } from "../../../store";
 import AboutDialog from "./component";
 import { withTranslation } from "react-i18next";
+import { withCookies } from "react-cookie";
 
 const mapStateToProps = (state: stateType) => {
   return {
@@ -21,4 +22,4 @@ const actionCreator = {
 export default connect(
   mapStateToProps,
   actionCreator
-)(withTranslation()(AboutDialog as any) as any);
+)(withTranslation()(withCookies(AboutDialog)) as any);

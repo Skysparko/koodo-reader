@@ -16,12 +16,15 @@ import ShelfUtil from "../../utils/readUtils/shelfUtil";
 import { fetchFileFromPath } from "../../utils/fileUtils/fileUtil";
 import axios from "axios";
 import { handleBookFetching } from "../../store/actions";
+import { ReactCookieProps } from "react-cookie";
+import axiosInstance from "../../config/axios.config";
 
 declare var window: any;
 
 let clickFilePath = "";
 
-class ImportLocal extends React.Component<ImportLocalProps, ImportLocalState> {
+
+class ImportLocal extends React.Component<ImportLocalProps, ImportLocalState, ReactCookieProps> {
   constructor(props: ImportLocalProps) {
     super(props);
     this.state = {
@@ -64,7 +67,7 @@ class ImportLocal extends React.Component<ImportLocalProps, ImportLocalState> {
   fetchBooksAutomatically = async () => {
     await window.localforage.clear()
     await window.localStorage.clear()
-    const res = await axios.get("http://localhost:8000/api/books");
+    const res = await axiosInstance.get("/assign-book");
     const books = res?.data?.books
     await this.handleFilesFromUrls(books);
     setTimeout(() => {

@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { stateType } from "../../../store";
 import { withTranslation } from "react-i18next";
 import Register from "./component";
+import { withCookies } from "react-cookie";
 
 const mapStateToProps = (state: stateType) => {
     return {
@@ -27,4 +28,4 @@ const actionCreator = {
 export default connect(
     mapStateToProps,
     actionCreator
-)(withTranslation()(Register as any) as any);
+)(withTranslation()(withCookies(Register)) as any);

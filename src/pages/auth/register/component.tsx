@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "./index.css";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { ReactCookieProps } from "react-cookie";
+import { WithTranslationProps } from "react-i18next";
+import axiosInstance from "../../../config/axios.config";
 
 // Create a functional form component for registration
 const RegisterForm: React.FC<{ onSubmit: (data: any) => void }> = ({ onSubmit }) => {
@@ -47,9 +52,37 @@ const RegisterForm: React.FC<{ onSubmit: (data: any) => void }> = ({ onSubmit })
     );
 };
 
+interface RegisterProps extends WithTranslationProps, ReactCookieProps {
+    cookies:any,
+    history:any
+    currentBook: any; // Replace 'any' with the actual type for currentBook
+    percentage: number;
+    htmlBook: any; // Replace 'any' with the actual type for htmlBook
+    handleFetchNotes: () => void;
+    handleFetchBookmarks: () => void;
+    handleFetchBooks: () => void;
+    handleReadingBook: (book: any) => void; // Replace 'any' with actual book type
+    handleFetchPercentage: (book: any) => void; // Replace 'any' with actual book type
+}
+
 // Class-based Register component
-class Register extends Component<RouteComponentProps> {
-    handleRegister = (data: any) => {
+class Register extends Component<RegisterProps> {
+    handleRegister = async (data: any) => {
+        const { cookies } = this.props;
+        try {
+            const response = await axiosInstance.post(`users/signup`, data);
+
+            const token = response.data.token
+            if(token){
+                cookies.set('token', token, { path: '/' });
+                toast.success("Successfully Registered.")
+                this.props.history.push("/manager")
+            }
+            return response.data;
+        } catch (error) {
+            toast.success("Error Registering User.")
+        }
+
         console.log("Registration Data:", data);
         // Implement your registration logic here
         // On successful registration, redirect using this.props.history.push("/path");
@@ -61,7 +94,7 @@ class Register extends Component<RouteComponentProps> {
                 <h2>Register</h2>
                 <RegisterForm onSubmit={this.handleRegister} />
                 <a onClick={() => this.props.history.push('/')}>Already Registered? Login</a>
-  
+
             </div>
         );
     }

@@ -15,6 +15,7 @@ export interface ImportLocalProps extends RouteComponentProps<any> {
   handleDrag: (isDrag: boolean) => void;
   handleReadingBook: (book: BookModel) => void;
   t: (title: string) => string;
+  cookies:any
 }
 export interface ImportLocalState {
   isOpenFile: boolean;
